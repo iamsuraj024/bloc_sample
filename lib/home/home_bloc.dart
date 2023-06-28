@@ -1,7 +1,10 @@
+import 'package:bloc_sample/home/home_repo.dart';
 import 'package:rxdart/subjects.dart';
 
 class HomeBloc {
-  BehaviorSubject<String> sampleBehavior = BehaviorSubject()..sink.add('No Data');
+  final HomeRepo _homeRepo = HomeRepo();
+  BehaviorSubject<String> sampleBehavior = BehaviorSubject()
+    ..sink.add('No Data');
 
   Stream<String> get testStream => sampleBehavior.stream;
 
@@ -16,6 +19,7 @@ class HomeBloc {
   }
 
   Future<void> setText(String title) async {
-    sampleBehavior.sink.add(title);
+    String repoString = _homeRepo.concatString();
+    sampleBehavior.sink.add('$title - $repoString');
   }
 }
